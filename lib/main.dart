@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:day_4_random_word_assignment/words.dart';
+import 'package:english_words/english_words.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class Password extends StatefulWidget {
 class _PasswordState extends State<Password> {
   List words = Words.list;
   String randomPassword = "";
+  var r = WordPair.random(random: Random()).asCamelCase;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +32,7 @@ class _PasswordState extends State<Password> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$randomPassword',
+              '$r',
               style: TextStyle(fontSize: 30),
             ),
             Padding(
@@ -43,6 +45,7 @@ class _PasswordState extends State<Password> {
                   child: Text('New Password',
                       style: TextStyle(fontSize: 25, color: Colors.white)),
                   onPressed: () {
+                    generateWordPairs().take(1);
                     setState(() {
                       String z = "";
                       for (int i = 0; i < 3; i++) {
@@ -50,6 +53,7 @@ class _PasswordState extends State<Password> {
                         z = z + ' ' + Words.list[y];
                       }
                       randomPassword = z;
+                      r = WordPair.random(random: Random()).asCamelCase;
                     });
                   },
                 ),
