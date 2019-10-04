@@ -21,6 +21,7 @@ class _PasswordState extends State<Password> {
   List words = Words.list;
   String randomPassword = "";
   var r = WordPair.random(random: Random()).asCamelCase;
+  String capitalize(String s) => s[0].toUpperCase() + s.substring(1);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +33,7 @@ class _PasswordState extends State<Password> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '$r',
+              '$randomPassword',
               style: TextStyle(fontSize: 30),
             ),
             Padding(
@@ -49,11 +50,15 @@ class _PasswordState extends State<Password> {
                     setState(() {
                       String z = "";
                       for (int i = 0; i < 3; i++) {
-                        int y = Random().nextInt(Words.list.length);
-                        z = z + ' ' + Words.list[y];
+                        int y = Random().nextInt(all.length);
+                        String rWord = all[y];
+                        if (i == 0) {
+                          z = z + ' ' + rWord;
+                        } else {
+                          z = z + capitalize(rWord);
+                        }
                       }
                       randomPassword = z;
-                      r = WordPair.random(random: Random()).asCamelCase;
                     });
                   },
                 ),
